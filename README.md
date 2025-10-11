@@ -5,7 +5,7 @@ This repository is the official implementation of Parameter-Free Hypergraph Neur
 
 ## Dataset description
 
-We provide 10 hypergraph benchmark datasets for evaluating accuracy, and one additional dataset for interpretability analysis. Their overall statistics are as follows:
+We provide ten hypergraph benchmark datasets for evaluating accuracy, and one additional dataset for interpretability analysis. Their overall statistics are as follows:
 
 ### Benchmark datasets
 
