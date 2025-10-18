@@ -35,7 +35,7 @@ We provide ten hypergraph benchmark datasets for evaluating accuracy, and one ad
 To evaluate ZEN on Cora, run:
 
 ```eval
-python3 main.py
+python main.py
 ```
 
 ### Additional arguments
