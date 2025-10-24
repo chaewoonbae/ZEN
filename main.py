@@ -22,27 +22,29 @@ def create_splits(Y, k):
     """
     label_to_indices = {}
     for idx, label in enumerate(Y):
-        label = label.item()
-        label_to_indices.setdefault(label, []).append(idx)
+        label = int(label)
+        if label not in label_to_indices:
+            label_to_indices[label] = []
+        label_to_indices[label].append(idx)
 
-    train_indices, val_indices = [], []
-    for indices in label_to_indices.values():
-        if len(indices) < 2 * k:
-            if len(indices) < k:
-                train = indices
-                val = []
-            else:
-                train = random.sample(indices, len(indices))[:k]
-                val = random.sample(indices, len(indices))[k:]
+    train_indices = set()
+    val_indices = set()
+
+    for label, indices in label_to_indices.items():
+        n = len(indices)
+        if n < k:
+            train = indices
+            val = []
         else:
-            train = random.sample(indices, 2 * k)[:k]
-            val = random.sample(indices, 2 * k)[k:]
-        train_indices.extend(train)
-        val_indices.extend(val)
+            sampled = random.sample(indices, min(n, 2 * k))
+            train = sampled[:k]
+            val = sampled[k:]
+        train_indices.update(train)
+        val_indices.update(val)
 
     all_indices = set(range(len(Y)))
-    test_indices = all_indices - set(train_indices) - set(val_indices)
-    
+    test_indices = all_indices - train_indices - val_indices
+
     return sorted(train_indices), sorted(val_indices), sorted(test_indices)
 
 
